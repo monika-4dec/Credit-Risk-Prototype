@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Building2, LayoutDashboard, Users, Settings } from 'lucide-react';
+import { Building2, LayoutDashboard, Users } from 'lucide-react';
 import {
   Sidebar,
   SidebarHeader,
@@ -39,14 +39,6 @@ export function SidebarNav() {
               <Link href="/borrowers">
                 <Users />
                 Borrowers
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname === '/settings'}>
-              <Link href="/settings">
-                <Settings />
-                Settings
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

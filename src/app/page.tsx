@@ -136,7 +136,10 @@ export default function PortfolioOverview() {
 
     const newTotalBorrowers = newBorrowers.length;
     const newRiskDistribution = newBorrowers.reduce((acc, b) => {
-        acc[b.aiCognitiveRisk.classification.toLowerCase() as keyof typeof acc]++;
+        const classification = b.aiCognitiveRisk.classification.toLowerCase() as keyof typeof acc;
+        if (acc[classification] !== undefined) {
+            acc[classification]++;
+        }
         return acc;
     }, { low: 0, moderate: 0, high: 0 });
 
