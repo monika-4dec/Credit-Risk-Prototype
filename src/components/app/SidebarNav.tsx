@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Building2, LayoutDashboard, Users, Settings, LogOutIcon } from 'lucide-react';
+import { Building2, LayoutDashboard, Users, Settings } from 'lucide-react';
 import {
   Sidebar,
   SidebarHeader,
@@ -9,15 +9,10 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarFooter,
-  SidebarGroup,
 } from '@/components/ui/sidebar';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function SidebarNav() {
   const pathname = usePathname();
-  const userAvatar = PlaceHolderImages.find((img) => img.id === 'user-avatar-1');
 
   return (
     <Sidebar>
@@ -32,23 +27,23 @@ export function SidebarNav() {
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname === '/dashboard'}>
-              <Link href="/dashboard">
+            <SidebarMenuButton asChild isActive={pathname === '/'}>
+              <Link href="/">
                 <LayoutDashboard />
                 Portfolio Overview
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard/borrowers')}>
-              <Link href="/dashboard">
+            <SidebarMenuButton asChild isActive={pathname.startsWith('/borrowers')}>
+              <Link href="/">
                 <Users />
                 Borrowers
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname === '/dashboard/settings'}>
+            <SidebarMenuButton asChild isActive={pathname === '/settings'}>
               <Link href="#">
                 <Settings />
                 Settings
@@ -57,23 +52,6 @@ export function SidebarNav() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarGroup>
-          <div className="flex items-center gap-3 p-2 rounded-lg bg-sidebar-accent/50">
-            <Avatar className="h-10 w-10">
-              {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" data-ai-hint={userAvatar.imageHint}/>}
-              <AvatarFallback>RM</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col text-sm overflow-hidden">
-                <span className="font-medium text-sidebar-accent-foreground truncate">John Doe</span>
-                <span className="text-muted-foreground text-xs truncate">Relationship Manager</span>
-            </div>
-            <Link href="/login" className="ml-auto">
-                <LogOutIcon className="h-5 w-5 text-muted-foreground hover:text-sidebar-accent-foreground transition-colors" />
-            </Link>
-          </div>
-        </SidebarGroup>
-      </SidebarFooter>
     </Sidebar>
   );
 }

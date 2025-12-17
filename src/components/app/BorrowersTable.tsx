@@ -102,7 +102,7 @@ export function BorrowersTable({ borrowers: initialBorrowers }: BorrowersTablePr
           {borrowers.map((borrower) => (
             <TableRow key={borrower.id}>
               <TableCell className="font-medium">
-                <Link href={`/dashboard/borrowers/${borrower.id}`} className="hover:underline text-primary">
+                <Link href={`/borrowers/${borrower.id}`} className="hover:underline text-primary">
                   {borrower.name}
                 </Link>
                 <div className="text-xs text-muted-foreground">{borrower.borrowerId}</div>

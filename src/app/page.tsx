@@ -1,45 +1,91 @@
-import Link from 'next/link';
-import { Building2 } from 'lucide-react';
+import {
+  Users,
+  PieChart as PieChartIcon,
+  TrendingUp,
+  Filter,
+} from 'lucide-react';
+import { portfolioStats, borrowers } from '@/lib/mock-data';
 
+import { KpiCard } from '@/components/app/KpiCard';
+import { RiskDistributionChart } from '@/components/app/RiskDistributionChart';
+import { RiskTrendChart } from '@/components/app/RiskTrendChart';
+import { BorrowersTable } from '@/components/app/BorrowersTable';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
-export default function LoginPage() {
+export default function PortfolioOverview() {
+  const { totalBorrowers, riskDistribution, newlyFlagged, riskTrend } = portfolioStats;
+  const highRiskBorrowers =
+    (riskDistribution.high / totalBorrowers) * 100;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-sm shadow-2xl">
-        <CardHeader className="text-center">
-          <div className="mb-4 flex justify-center">
-            <div className="rounded-full bg-primary p-3">
-              <Building2 className="h-8 w-8 text-primary-foreground" />
-            </div>
-          </div>
-          <CardTitle className="text-3xl font-bold font-headline">CreditWise Sentinel</CardTitle>
-          <CardDescription>AI-powered behavioural credit risk insights</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="rm@bank.com" required defaultValue="rm@bank.com" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link href="#" className="ml-auto inline-block text-sm underline" prefetch={false}>
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required defaultValue="password" />
-            </div>
-            <Button asChild type="submit" className="w-full">
-              <Link href="/dashboard">Sign In</Link>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">
+          Portfolio Overview
+        </h1>
+        <p className="text-muted-foreground">
+          High-level behavioral credit risk insights for your portfolio.
+        </p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <KpiCard
+          title="Total Borrowers"
+          value={totalBorrowers.toLocaleString()}
+          icon={<Users className="h-5 w-5" />}
+          footerText="Total borrowers actively monitored."
+        />
+        <KpiCard
+          title="High-Risk Accounts"
+          value={riskDistribution.high.toString()}
+          icon={<PieChartIcon className="h-5 w-5" />}
+          footerText={`${highRiskBorrowers.toFixed(1)}% of total portfolio`}
+        />
+        <KpiCard
+          title="Newly Flagged High-Risk"
+          value={`+${newlyFlagged}`}
+          icon={<TrendingUp className="h-5 w-5" />}
+          footerText="In the last 30 days"
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <RiskDistributionChart data={riskDistribution} />
+        <RiskTrendChart data={riskTrend} />
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold tracking-tight font-headline">
+            All Borrowers
+            </h2>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                    <Filter className="mr-2 h-4 w-4" />
+                    Filter
+                </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuCheckboxItem checked>Loan Type</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem>Geography</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem>Segment</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem>RM Name</DropdownMenuCheckboxItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
+        <BorrowersTable borrowers={borrowers} />
+      </div>
     </div>
   );
 }

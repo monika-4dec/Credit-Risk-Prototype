@@ -31,7 +31,7 @@ export default function BorrowerProfilePage({
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/dashboard" className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-2">
+        <Link href="/" className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-2">
             <ChevronLeft className="h-4 w-4 mr-1" />
             Back to Portfolio
         </Link>
