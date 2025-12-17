@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Building2, LayoutDashboard, Users } from 'lucide-react';
+import { LayoutDashboard, Users } from 'lucide-react';
 import {
   Sidebar,
   SidebarHeader,
@@ -17,11 +17,23 @@ export function SidebarNav() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex items-center gap-2">
-            <div className="bg-primary rounded-md p-1.5">
-                <Building2 className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-semibold text-sidebar-primary-foreground font-headline">CreditWise</span>
+        <div className="flex flex-col items-start gap-2">
+            <svg
+                width="80"
+                height="32"
+                viewBox="0 0 80 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-[#FF4F00]"
+            >
+                <path
+                d="M3.328 27.5V4.5H19.232V8.46H7.56V14.04H18.224V17.98H7.56V23.54H19.424V27.5H3.328ZM23.36 27.5V4.5H38.336L29.672 15.54L38.72 27.5H33.488L27.32 18.2L25.544 19.952V27.5H23.36ZM41.8899 27.5V4.5H46.1219V23.54H56.0979V27.5H41.8899Z"
+                fill="currentColor"
+                />
+            </svg>
+            <p className="text-xs text-sidebar-foreground/80 pl-1">
+                A prototype for EXL
+            </p>
         </div>
       </SidebarHeader>
       <SidebarContent>
