@@ -35,15 +35,19 @@ export function SidebarNav() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton disabled>
+            <SidebarMenuButton asChild isActive={pathname === '/borrowers'}>
+              <Link href="/borrowers">
                 <Users />
                 Borrowers
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton disabled>
+            <SidebarMenuButton asChild isActive={pathname === '/settings'}>
+              <Link href="/settings">
                 <Settings />
                 Settings
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
