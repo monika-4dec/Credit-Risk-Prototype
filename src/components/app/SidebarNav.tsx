@@ -32,7 +32,7 @@ export function SidebarNav() {
                 />
             </svg>
             <p className="text-xs text-sidebar-foreground/80 pl-1">
-                Prototype designed for client engagement to demonstrate early-stage cognitive credit risk profiling.
+                Client engagement prototype for cognitive credit risk profiling
             </p>
         </div>
       </SidebarHeader>
