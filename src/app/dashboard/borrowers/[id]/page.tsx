@@ -1,7 +1,9 @@
+'use client';
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
-import { borrowers } from "@/lib/mock-data";
+import { borrowers as mockBorrowers } from "@/lib/mock-data";
 import { BorrowerSummary } from "@/components/app/BorrowerSummary";
 import { CognitiveRiskScore } from "@/components/app/CognitiveRiskScore";
 import {
@@ -16,16 +18,28 @@ import { BehavioralInsights } from "@/components/app/BehavioralInsights";
 import { RiskExplanation } from "@/components/app/RiskExplanation";
 import { ActionableRecommendations } from "@/components/app/ActionableRecommendations";
 import { Alerts } from "@/components/app/Alerts";
+import { useEffect, useState } from "react";
+import type { Borrower } from "@/lib/types";
 
 export default function BorrowerProfilePage({
   params,
 }: {
   params: { id: string };
 }) {
-  const borrower = borrowers.find((b) => b.id === params.id);
+  const [borrower, setBorrower] = useState<Borrower | undefined>(undefined);
+
+  useEffect(() => {
+    // In a real app, you'd fetch this data.
+    // For now, we find it in the mock data, but this demonstrates
+    // how a client component would handle dynamic data.
+    const foundBorrower = mockBorrowers.find((b) => b.id === params.id);
+    setBorrower(foundBorrower);
+  }, [params.id]);
+
 
   if (!borrower) {
-    notFound();
+    // You could show a loading spinner here
+    return <div>Loading...</div>;
   }
 
   return (
